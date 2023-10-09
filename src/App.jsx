@@ -46,6 +46,8 @@ function App() {
       <input
         type="text"
         placeholder="Enter OTP"
+        autoComplete="one-time-code"
+        inputMode="numeric"
         value={otpcode}
         onChange={(e) => setOtpcode(e.target.value)}
       />
