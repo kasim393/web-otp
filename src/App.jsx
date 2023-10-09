@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -20,6 +20,24 @@ function App() {
         ac.abort();
       });
   }
+  useEffect(() => {
+    let ac = new AbortController();
+    setTimeout(() => {
+      // abort after 10 minutes
+      ac.abort();
+    }, 10 * 60 * 1000);
+    navigator.credentials
+      .get({
+        otp: { transport: ["sms"] },
+        signal: ac.signal,
+      })
+      .then((otp) => {
+        setOtpcode(otp.code);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   return (
     <>
@@ -31,22 +49,6 @@ function App() {
         value={otpcode}
         onChange={(e) => setOtpcode(e.target.value)}
       />
-      <br />
-      <br />
-      <h3>
-        Send below message from another phone <br /> while chrome is active on
-        your mobile screen
-      </h3>
-      <br />
-      <br />
-      <h3 className="msg">
-        <pre>
-          Your test code is: 555444
-          <br />
-          <br />
-          @csb-jsfh2.netlify.app #555444
-        </pre>
-      </h3>
     </>
   );
 }
