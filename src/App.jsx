@@ -4,22 +4,22 @@ import "./App.css";
 function App() {
   const [otpcode, setOtpcode] = useState("");
 
-  if ("OTPCredential" in window) {
-    const ac = new AbortController();
-
-    navigator.credentials
-      .get({
-        otp: { transport: ["sms"] },
-        signal: ac.signal,
-      })
-      .then((otp) => {
-        setOtpcode(otp.code);
-        ac.abort();
-      })
-      .catch(() => {
-        ac.abort();
-      });
-  }
+  // another approach
+  // if ("OTPCredential" in window) {
+  //   const ac = new AbortController();
+  //   navigator.credentials
+  //     .get({
+  //       otp: { transport: ["sms"] },
+  //       signal: ac.signal,
+  //     })
+  //     .then((otp) => {
+  //       setOtpcode(otp.code);
+  //       ac.abort();
+  //     })
+  //     .catch(() => {
+  //       ac.abort();
+  //     });
+  // }
   useEffect(() => {
     let ac = new AbortController();
     setTimeout(() => {
